@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" />
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+    }
+    :root {
+      --primary: #03011c;
+      --secondary: #1c1847;
+      --accent: #0cb8c2;
+      --text: #fff;
+    }
+    html {
+      scroll-behavior: smooth;
+    }
+    body {
+      background: var(--primary);
+      font-family: 'Poppins', sans-serif;
+    }
+    a {
+      text-decoration: none;
+      color: var(--text);
+    }
+    img {
+      width: 100%;
+    }
+    .container {
+      padding: 4rem 2rem;
+      color: var(--text);
+    }
+    .highlighted {
+      color: var(--accent);
+    }
+    .btn {
+      background-color: var(--accent);
+      color: var(--text);
+      padding: 0.5rem 3rem;
+      border-radius: 5rem;
+      display: inline-block;
+      margin-top: 2rem;
+      border: 2px solid var(--accent);
+      transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    }
+    .btn:hover {
+      background-color: transparent;
+      color: var(--accent);
+      transform: scale(1.05);
+      box-shadow: 0 4px 15px rgba(12, 184, 194, 0.5);
+    }
+    .nav {
+      background-color: var(--secondary);
+      display: flex;
+      justify-content: space-between;
+      padding: 0.5rem 1rem;
+      position: fixed;
+      width: 100%;
+    }
+    .logo {
+      font-weight: 700;
+      font-size: 1.5rem;
+    }
+    .nav-links {
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      top: 50px;
+      background-color: var(--secondary);
+      width: 100%;
+      left: -200%;
+      padding: 1rem;
+      transition: left 0.5s ease;
+    }
+    .nav-active {
+      left: 0;
+    }
+    .nav-item {
+      font-size: 0.8rem;
+      opacity: 0.7;
+      display: block;
+      text-align: center;
+      margin-bottom: 1rem;
+      text-transform: capitalize;
+      position: relative;
+    }
+    .nav-item:hover {
+      opacity: 1;
+    }
+    .toggler .line {
+      width: 30px;
+      height: 2px;
+      display: block;
+      background-color: var(--text);
+      margin: 5px;
+    }
+    .hero {
+      display: flex;
+      flex-direction: column-reverse;
+      justify-content: center;
+      align-items: center;
+      color: var(--text);
+    }
+    .hero-img img {
+      max-width: 390px;
+      border-radius: 50%;
+      border: 8px solid #0cb8c2;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+      transition: transform 0.3s ease, border-color 0.3s ease;
+    }
+    .hero-img img:hover {
+      transform: scale(1.1);
+      border-color: #087f89;
+      box-shadow: 0 0 20px #087f89;
+    }
+    .hero-info {
+      text-align: center;
+      padding-top: 3rem;
+    }
+    .title {
+      font-size: 2.5rem;
+    }
+    .hero-description {
+      opacity: 0.7;
+    }
+    .skills-wrapper {
+      padding: 20px;
+    }
+    .secondary-title {
+      color: #fff;
+      margin-bottom: 1rem;
+    }
+    .skills {
+      width: 90%;
+      max-width: 600px;
+      margin: 20px auto;
+    }
+    .skill-item {
+      margin-bottom: 20px;
+    }
+    .skill-name {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #fff;
+    }
+    .progress-container {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .progress-bar {
+      flex: 1;
+      height: 20px;
+      background-color: #ccc;
+      border-radius: 10px;
+      overflow: hidden;
+      position: relative;
+    }
+    .progress {
+      height: 100%;
+      background-color: #0cb8c2;
+      border-radius: 10px;
+      transition: width 1s ease-in-out;
+      width: 0;
+    }
+    .progress-percent {
+      min-width: 35px;
+      font-weight: bold;
+      color: #fff;
+    }
+    /* Education Section */
+    .education {
+      margin-top: 30px;
+    }
+    .education h3 {
+      font-size: 1.8rem;
+      margin-bottom: 20px;
+      color: var(--primary-color);
+    }
+    .education-item {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 30px;
+      border-radius: 10px;
+      margin-bottom: 30px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      border-left: 4px solid var(--primary-color);
+      transition: all 0.3s ease;
+    }
+    .education-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(82, 205, 211, 0.2);
+    }
+    .education-item h3 {
+      font-size: 1.5rem;
+      color: var(--primary-color);
+      margin-bottom: 10px;
+    }
+    .education-item h4 {
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+      color: var(--text-light);
+    }
+    .education-item .date {
+      display: inline-block;
+      background: rgba(100, 208, 220, 0.1);
+      padding: 5px 15px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      margin-bottom: 15px;
+      color: var(--primary-color);
+    }
+    .section {
+      padding: 60px 20px;
+      background-color: #0f172a;
+      color: white;
+    }
+    .section-title {
+      text-align: center;
+      color: #e0eae9;
+      font-size: 32px;
+      margin-bottom: 30px;
+    }
+    .subheading {
+      color: #0cb8c2;
+      font-size: 24px;
+      margin-top: 40px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .certificates-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+      justify-content: center;
+    }
+    .certificate-card {
+  position: relative;
+  overflow: hidden;
+  background: #111827;
+  border: 2px solid #0cb8c2;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  width: 100%;
+  max-width: 320px;
+  height: 180px;
+  transition: transform 0.3s ease;
+}
+    .certificate-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5);
+    }
+    .card-content {
+      z-index: 1;
+      position: relative;
+    }
+    .certificate-card h4 {
+      color: #0cb8c2;
+      font-size: 20px;
+      margin-bottom: 8px;
+    }
+    .certificate-card p {
+      font-size: 14px;
+      color: #ccc;
+    }
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(14, 230, 230, 0.95);
+      color: #000;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      padding: 20px;
+      text-align: center;
+      border-radius: 12px;
+    }
+    .overlay a {
+      margin-top: 10px;
+      color: #000;
+      background: #fff;
+      padding: 6px 12px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .certificate-card:hover .overlay {
+      opacity: 1;
+    }
+    @media (max-width: 768px) {
+      .section-title {
+        font-size: 26px;
+      }
+      .subheading {
+        font-size: 20px;
+      }
+      .certificate-card {
+        padding: 16px;
+      }
+      .certificate-card h4 {
+        font-size: 18px;
+      }
+      .certificate-card p,
+      .certificate-card a {
+        font-size: 13px;
+      }
+    }
+    @media (max-width: 480px) {
+      .certificates-grid {
+        grid-template-columns: 1fr;
+      }
+      .certificate-card {
+        width: 100%;
+      }
+      .section {
+        padding: 40px 10px;
+      }
+      .overlay {
+        opacity: 1;
+        background: rgba(31, 227, 207, 0.2);
+        color: #011615;
+        position: relative;
+        padding: 10px;
+      }
+      .overlay a {
+        background: transparent;
+        color: #0cb8c2;
+      }
+    }
+    .services-item {
+      background: var(--secondary);
+      border-radius: 10px;
+      text-align: center;
+      padding: 2rem 1rem;
+      margin-bottom: 1.5rem;
+      transition: transform 0.3s, box-shadow 0.3s ease;
+    }
+    .services-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
+    }
+    .projects-header {
+      padding-bottom: 2rem;
+    }
+    .projects-tab-btn {
+      background-color: transparent;
+      border: 2px solid var(--accent);
+      color: var(--text);
+      padding: 0.3rem 1.5rem;
+      border-radius: 5rem;
+      margin-right: 0.5rem;
+      margin-bottom: 0.5rem;
+      transition: background-color 0.3s ease, transform 0.3s;
+    }
+    .projects-tab-btn-active {
+      background-color: var(--accent);
+    }
+    .projects-item {
+      margin-bottom: 1rem;
+      transition: transform 0.3s;
+    }
+    .projects-item:hover {
+      transform: scale(1.05);
+    }
+    .projects-item img {
+      border-radius: 10px;
+      width: 265px;
+      /* ≈ 7cm */
+      height: 189px;
+      /* ≈ 5cm */
+      object-fit: cover;
+      display: block;
+      margin: 0 auto;
+    }
+    .projects-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: center;
+    }
+    .contact-info-item {
+      display: flex;
+    }
+    .contact-info-icon {
+      width: 50px;
+      height: 50px;
+      background-color: var(--accent);
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-right: 0.5rem;
+      margin-bottom: 1rem;
+    }
+    .contact-form form {
+      display: flex;
+      flex-direction: column;
+    }
+    .social-links a {
+      font-size: 24px;
+      margin-right: 15px;
+      color: white;
+      transition: color 0.3s, box-shadow 0.3s, transform 0.3s;
+    }
+    .social-links a:hover {
+      color: #26bbdc;
+      box-shadow: 0 0 10px #26c4dc;
+      transform: scale(1.1);
+    }
+    input,
+    textarea {
+      background: var(--secondary);
+      border: none;
+      border-radius: 10px;
+      margin-top: 1rem;
+      padding: 0.8rem 1rem;
+    }
+    .footer {
+      color: var(--text);
+      text-align: center;
+      padding: 2rem 0;
+    }
+    @media screen and (min-width: 700px) {
+      .container {
+        padding: 4rem 6rem;
+      }
+      .grid {
+        display: flex;
+        gap: 2rem;
+        flex-wrap: wrap;
+      }
+      .grid-item {
+        width: 30%;
+      }
+      .nav {
+        padding-left: 6rem;
+        padding-right: 6rem;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .toggler {
+        display: none;
+      }
+      .nav-links {
+        position: static;
+        flex-direction: row;
+        padding: 0;
+        width: auto;
+      }
+      .nav-item {
+        margin: 0 0.5rem;
+      }
+      .nav-item-active {
+        opacity: 1;
+      }
+      .hero {
+        flex-direction: row;
+        justify-content: space-between;
+      }
+      .hero-info {
+        text-align: left;
+      }
+      .title {
+        font-size: 5rem;
+      }
+      .contact {
+        display: flex;
+        justify-content: space-between;
+      }
+      .contact-form {
+        width: 55%;
+      }
+      .submit-btn {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="nav">
+      <a href="/" class="logo">
+        <span class="highlighted">My</span>Portfolio
+      </a>
+      <div class="nav-links">
+        <a href="#home" class="nav-item nav-item-active">Home</a>
+        <a href="#about" class="nav-item">About</a>
+        <a href="#achievements" class="nav-item">Achievements</a>
+        <a href="#services" class="nav-item">Services</a>
+        <a href="#projects" class="nav-item">Projects</a>
+        <a href="#contact" class="nav-item">Contact</a>
+      </div>
+      <div class="toggler">
+        <span class="line"></span><span class="line"></span><span class="line"></span>
+      </div>
+    </nav>
+  </header>
+  <section class="hero container" id="home">
+    <div class="hero-info">
+      <h1 class="title">Jagadeesh <span class="highlighted">Sai</span></h1>
+      <p class="hero-description">Web development based in Starling City.</p>
+      <a href="#services" class="btn hero-btn">Services</a>
+    </div>
+    <div class="hero-img">
+      <img src="https://i.postimg.cc/tR3JLzZw/Whats-App-Image-2025-05-31-at-15-27-43-0174b228.jpg" alt="Oliver Queen" />
+    </div>
+  </section>
+  <section class="about container" id="about">
+    <div class="about-content">
+      <div class="about-info">
+        <h2 class="title" style="font-size: 1.5rem;">About Me</h2>
+        <p class="description"> I’m a dedicated and creative web developer with a passion for crafting digital experiences that are both visually striking and functionally strong. My approach combines modern design principles with clean, efficient code to build websites that perform beautifully across devices. </p>
+        <p class="description"> With experience in front-end technologies and UI/UX design, I focus on making interfaces intuitive and user-centered. Whether it's a simple landing page or a full-scale responsive website, I ensure every project reflects quality, usability, and innovation.</p>
+        <p class="description"> I’m always eager to learn, explore new technologies, and push boundaries to deliver results that exceed expectations. For me, web development isn’t just about code — it’s about solving problems creatively and delivering value through thoughtful design and execution.</p>
+      </div>
+      <div class="skills-wrapper">
+        <h2 class="secondary-title">Skills</h2>
+        <div class="skills">
+          <div class="skill-item">
+            <span class="skill-name">HTML & CSS</span>
+            <div class="progress-container">
+              <div class="progress-bar">
+                <div class="progress" style="width: 95%;"></div>
+              </div>
+              <span class="progress-percent">95%</span>
+            </div>
+          </div>
+          <div class="skill-item">
+            <span class="skill-name">JavaScript</span>
+            <div class="progress-container">
+              <div class="progress-bar">
+                <div class="progress" style="width: 90%;"></div>
+              </div>
+              <span class="progress-percent">90%</span>
+            </div>
+          </div>
+          <div class="skill-item">
+            <span class="skill-name">React</span>
+            <div class="progress-container">
+              <div class="progress-bar">
+                <div class="progress" style="width: 85%;"></div>
+              </div>
+              <span class="progress-percent">85%</span>
+            </div>
+          </div>
+          <div class="skill-item">
+            <span class="skill-name">Node.js</span>
+            <div class="progress-container">
+              <div class="progress-bar">
+                <div class="progress" style="width: 80%;"></div>
+              </div>
+              <span class="progress-percent">80%</span>
+            </div>
+            <div class="education">
+              <h3>Education</h3>
+              <div class="education-item">
+                <h3>Bachelor of Technology in Computer Science</h3>
+                <h4>Aditya Engineering College</h4>
+                <span class="date">2023 - 2027</span>
+              </div>
+              <div class="education-item">
+                <h3>Intermediate</h3>
+                <h4>Tirumala Junior College</h4>
+                <span class="date">2021 - 2023</span>
+              </div>
+              <div class="education-item">
+                <h3>Secondary School Education</h3>
+                <h4>Tirumala School Katheru</h4>
+                <span class="date">2019 - 2021</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </section>
+  <section id="achievements" class="fade-in">
+    <div class="section">
+    <h2 class="section-title">Achievements & Certifications</h2>
+    <!-- Programming Languages -->
+    <h3 class="subheading">Programming Languages</h3>
+    <div class="certificates-grid">
+      <div class="certificate-card">
+        <div class="card-content">
+          <h4>C Programming</h4>
+          <p>Cisco Networking Academy • Mar 2024</p>
+        </div>
+        <div class="overlay">
+          <a href="https://drive.google.com/file/d/17dPDrkERIKtS-hQtsUSvaOsAhRCnAe9R/view?usp=sharing " target="_blank">View Certificate</a>
+        </div>
+      </div>
+      <div class="certificate-card">
+        <div class="card-content">
+          <h4>C++ Basics</h4>
+          <p>Cisco Networking Academy • Aug 2024</p>
+        </div>
+        <div class="overlay">
+          <a href="https://drive.google.com/file/d/1_YYJc-Ids78mm2IR6G5XFNjeaR2Yav9q/view?usp=sharing " target="_blank">View Certificate</a>
+        </div>
+      </div>
+      <div class="certificate-card">
+        <div class="card-content">
+          <h4>Java Fundamentals</h4>
+          <p>Oracle Academy • Dec 2024</p>
+        </div>
+        <div class="overlay">
+          <a href="https://drive.google.com/file/d/1SpyB33WFEWdhniCp1oW3nrRoLFy0qOp_/view?usp=sharing " target="_blank">View Certificate</a>
+        </div>
+      </div>
+      <div class="certificate-card">
+        <div class="card-content">
+          <h4>Python</h4>
+          <p>Red Hat • April 2025</p>
+        </div>
+        <div class="overlay">
+          <a href="https://drive.google.com/file/d/11UibDZ1u04sqyY9WOdEJsgtPW9eul-zN/view?usp=sharing " target="_blank">View Certificate</a>
+        </div>
+      </div>
+    </div>
+    <!-- Frontend Development -->
+<h3 class="subheading">Frontend Development</h3>
+<div class="certificates-grid">
+  <div class="certificate-card">
+    <div class="card-content">
+      <h4>HTML</h4>
+      <p>Infosys Springboard • Mar 2025</p>
+    </div>
+    <div class="overlay">
+      <a href="https://drive.google.com/file/d/1w5gqRXnJMuvoRJZwIc2Hssy3sSXJ3anX/view?usp=sharing " target="_blank">View Certificate</a>
+    </div>
+  </div>
+  <div class="certificate-card">
+    <div class="card-content">
+      <h4>CSS</h4>
+      <p>Infosys Springboard • Mar 2025</p>
+    </div>
+    <div class="overlay">
+      <a href="https://drive.google.com/file/d/1xelykTKPJph7czlCzPT3At6gmV8Jnwbj/view?usp=sharing" target="_blank">View Certificate</a>
+    </div>
+  </div>
+  <div class="certificate-card">
+    <div class="card-content">
+      <h4>JavaScript</h4>
+      <p>Infosys Springboard • Mar 2025</p>
+    </div>
+    <div class="overlay">
+      <a href="https://drive.google.com/file/d/1Z4kED3ZCYqMYKjlTe16k8e2Ue0fuGEoq/view?usp=sharing " target="_blank">View Certificate</a>
+    </div>
+  </div>
+  <!-- New Card 1 -->
+  <div class="certificate-card">
+    <div class="card-content">
+      <h4>Networking and Web Technology</h4>
+      <p>Infosys Springboard • Mar 2025</p>
+    </div>
+    <div class="overlay">
+      <a href="https://drive.google.com/file/d/1_HXITPLavLTqucSaBd1Z_5XbLUwcgGUi/view?usp=sharing " target="_blank">View Certificate</a>
+    </div>
+  </div>
+  <!-- New Card 2 -->
+  <div class="certificate-card">
+    <div class="card-content">
+      <h4>Frontend Web Developer</h4>
+      <p>Infosys Springboard • Mar 2025</p>
+    </div>
+    <div class="overlay">
+      <a href="https://drive.google.com/file/d/1rG8wvBs04d0o9y7DoFcg6yiqXhjRLUka/view?usp=sharing " target="_blank">View Certificate</a>
+    </div>
+  </div>
+</div>
+    </div>
+  </div>
+  </section>
+  <div class="services container" id="services">
+    <div class="services-header">
+      <h2 class="secondary-title">Services</h2>
+    </div>
+    <div class="grid services-grid">
+      <div class="grid-item services-item">
+        <i class="fa-solid fa-computer"></i>
+        <h3>Website Design</h3>
+        <p class="description">We create designs that are truly unique. With a focus on innovation and quality, we build websites that stand out and make an impact.</p>
+      </div>
+      <div class="grid-item services-item">
+        <i class="fa-solid fa-meteor"></i>
+        <h3>SEO & Marketing</h3>
+        <p class="description">We handle every project with care and strategic thinking, ensuring meaningful results and solutions that truly matter.</p>
+      </div>
+      <div class="grid-item services-item">
+        <i class="fa-solid fa-pen-nib"></i>
+        <h3>UI/UX Design</h3>
+        <p class="description">We design intuitive and user-friendly interfaces that reduce frustration and enhance user experience, making your product both functional and enjoyable.</p>
+      </div>
+    </div>
+  </div>
+  <section class="projects container" id="projects">
+    <div class="projects-header">
+      <h2 class="secondary-title">Projects</h2>
+      <div class="projects-tab">
+        <button class="projects-tab-btn projects-tab-btn-active" id="all">All</button>
+        <button class="projects-tab-btn" id="design">Web Design</button>
+        <button class="projects-tab-btn" id="ui-ux">App Development</button>
+      </div>
+    </div>
+    <div class="grid projects-grid">
+      <div class="grid-item projects-item all design">
+        <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80" alt="E-Commerce Website" />
+        <h3>E-Commerce Website</h3>
+        <p>Full-featured online store with custom CMS.</p>
+      </div>
+      <div class="grid-item projects-item all ui-ux">
+        <img src="https://images.unsplash.com/photo-1555774698-0b77e0d5fac6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Fitness App" />
+        <h3>Fitness App</h3>
+        <p>Mobile application for workout tracking.</p>
+      </div>
+    </div>
+  </section>
+  <section class="container contact" id="contact">
+    <div class="contact-info">
+      <h2 class="secondary-title">Contact</h2>
+      <div class="info-container">
+        <div class="contact-info-item">
+          <div class="contact-info-icon">
+            <i class="fa-solid fa-location-dot"></i>
+          </div>
+          <div class="contact-info-data">
+            <h3>Address</h3>
+            <p>Aditya Engineering College, Surampalem.</p>
+          </div>
+        </div>
+        <div class="contact-info-item">
+          <div class="contact-info-icon">
+            <i class="fa-solid fa-envelope"></i>
+          </div>
+          <div class="contact-info-data">
+            <h3>Email</h3>
+            <p>k.v.jagadeesh2006@gmail.com</p>
+          </div>
+        </div>
+        <div class="contact-info-item">
+          <div class="contact-info-icon">
+            <i class="fa-solid fa-phone-volume"></i>
+          </div>
+          <div class="contact-info-data">
+            <h3>Phone</h3>
+            <p>9550394889</p>
+          </div>
+        </div>
+        <div class="social-links">
+          <a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+          <a href="https://github.com" target="_blank"><i class="fab fa-github"></i></a>
+          <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+          <a href="https://twitwer.com" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+        </div>
+      </div>
+    </div>
+    </div>
+    <div class="contact-form">
+      <form action="https://formspree.io/f/mgvknvlj" method="POST">
+        <input type="text" name="name" placeholder="Name" required />
+        <input type="email" name="email" placeholder="Email" required />
+        <textarea name="message" rows="10" placeholder="Message" required></textarea>
+        <button class="btn submit-btn" type="submit">Send Message</button>
+      </form>
+    </div>
+  </section>
+  <footer class="footer">
+    <p>&copy; 2025 Jagadeesh Sai All Rights Reserved</p>
+  </footer>
+  <script>
+    // Select all tab buttons and project items
+    const tabButtons = document.querySelectorAll('.projects-tab-btn');
+    const projectItems = document.querySelectorAll('.projects-item');
+    // Add click event listeners to all tab buttons
+    tabButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        // Remove the active class from all buttons
+        tabButtons.forEach((btn) => btn.classList.remove('projects-tab-btn-active'));
+        // Add active class to the clicked button
+        button.classList.add('projects-tab-btn-active');
+        // Get the category of the clicked button
+        const category = button.id;
+        // Show/hide project items based on the selected category
+        projectItems.forEach((item) => {
+          if (category === 'all' || item.classList.contains(category)) {
+            item.style.display = 'block'; // Show the item
+          } else {
+            item.style.display = 'none'; // Hide the item
+          }
+        });
+      });
+    });
+  </script>
+  <script>
+    const toggler = document.querySelector('.toggler');
+    const navLinks = document.querySelector('.nav-links');
+    toggler.addEventListener('click', () => {
+      navLinks.classList.toggle('nav-active');
+    });
+  </script>
+</body>
+</html>
